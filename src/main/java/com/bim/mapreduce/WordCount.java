@@ -59,6 +59,14 @@ public class WordCount {
 
         Configuration conf = new Configuration();
 
+        // 设置文件系统是本地
+        //conf.set("fs.defaultFS", "local");
+
+        // 设置mr运行环境是本地
+        //conf.set("mapreduce.framework.name","local");
+
+        // 默认就是local所以我们可以省略
+
         Job job = Job.getInstance(conf);
         // 指定本程序jar包所在的路径
         job.setJarByClass(WordCount.class);
@@ -76,8 +84,8 @@ public class WordCount {
         job.setOutputValueClass(LongWritable.class);
 
         // 获取用户输入路径和输出路径
-        FileInputFormat.setInputPaths(job,new Path(args[0]));
-        FileOutputFormat.setOutputPath(job,new Path(args[1]));
+        FileInputFormat.setInputPaths(job,new Path("/home/zyh/wc/input/"));
+        FileOutputFormat.setOutputPath(job,new Path("/home/zyh/wc/output6/"));
 
         boolean b = job.waitForCompletion(true);
         System.exit(b?0:1);

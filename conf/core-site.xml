@@ -19,10 +19,6 @@
 <configuration>
 	<property>
 		<name>fs.defaultFS</name>
-		<value>hdfs://zyh:9000/</value>
-	</property>
-	<property>
-		<name>hadoop.tmp.dir</name>
-		<value>/media/zyh/software/hadoop-2.4.1/data/</value>
+		<value>hdfs://cor1:9000/</value>
 	</property>
 </configuration>

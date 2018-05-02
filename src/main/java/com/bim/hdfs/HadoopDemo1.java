@@ -7,21 +7,35 @@ import org.junit.Test;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 
-public class HadoopDemo1 {
+public class HadoopDemo1{
 
     private static Configuration configuration = new Configuration();
     private static FileSystem fs;
     static{
         try{
-            fs = FileSystem.get(new URI("hdfs//core1:9000"),configuration);
+            configuration.set("dfs.replication","1");
+            fs = FileSystem.get(new URI("hdfs://cor1:9000"),configuration);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    /**
+     * 源码跟踪
+     */
+    @Test
+    public void create(){
+        try {
+            fs.create(new Path("/test9.log"));
+        } catch (IOException e) {
+
+        }
+    }
+    
     /**
      * 创建目录
      */
@@ -38,6 +52,25 @@ public class HadoopDemo1 {
         }
 
     }
+
+    /**
+     * 删除文件
+     */
+    @Test
+    public void delFile(){
+
+        try{
+
+            Path dst = new Path("/backup/20180426/");
+
+            fs.deleteOnExit(dst);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 
     /**
      * 下载到本地
@@ -67,8 +100,8 @@ public class HadoopDemo1 {
 
         try{
 
-            Path src = new Path("/home/zyh/demo1.txt");
-            Path dst = new Path("/test/demo1.txt");
+            Path src = new Path("/home/zyh/Documents/bim-backupdata/modeldata");
+            Path dst = new Path("/backup/20180426/modeldata");
 
             fs.copyFromLocalFile(src, dst);
 
@@ -78,23 +111,6 @@ public class HadoopDemo1 {
 
     }
 
-    /**
-     * 删除文件
-     */
-    @Test
-    public void delFile(){
-
-        try{
-
-            Path dst = new Path("/test/demo1.txt");
-
-            fs.deleteOnExit(dst);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
 
     /**
      * 查找/目录下所有目录以及文件
@@ -104,7 +120,7 @@ public class HadoopDemo1 {
 
         try{
 
-            Path dst = new Path("/");
+            Path dst = new Path("/backup/20180426");
 /*
             RemoteIterator<Path> pathRemoteIterator = fs.listCorruptFileBlocks(dst);
             while(pathRemoteIterator.hasNext()){

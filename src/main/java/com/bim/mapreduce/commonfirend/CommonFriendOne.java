@@ -127,8 +127,8 @@ public class CommonFriendOne {
         job.setOutputValueClass(Text.class);
 
         // 设置文件的下载目录和计算输出目录
-        FileInputFormat.setInputPaths(job,new Path("/home/zyh/Documents/bigdata/homework/commonfriend.log"));
-        FileOutputFormat.setOutputPath(job,new Path("/home/zyh/Documents/bigdata/homework/commonfriendoutput/"));
+        FileInputFormat.setInputPaths(job,new Path("/home/zyh/workspace/0511test/test.txt"));
+        FileOutputFormat.setOutputPath(job,new Path("/home/zyh/workspace/0511test/output"));
         boolean b = job.waitForCompletion(true);
         System.exit(b?0:1);
 
